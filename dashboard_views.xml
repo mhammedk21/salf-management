@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_salf_dashboard_form" model="ir.ui.view">
+        <field name="name">salf.dashboard.form</field>
+        <field name="model">salf.dashboard</field>
+        <field name="arch" type="xml">
+            <form string="لوحة التحكم">
+                <sheet>
+                    <h1>لوحة مؤشرات إدارة السلف المالية</h1>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(action_salf_customers)d" type="action" class="oe_stat_button" icon="fa-users">
+                            <field name="customer_count" widget="statinfo" string="عدد الزبائن"/>
+                        </button>
+                        <button name="%(action_salf_loans)d" type="action" class="oe_stat_button" icon="fa-money">
+                            <field name="disbursed_count" widget="statinfo" string="السلف النازلة"/>
+                        </button>
+                    </div>
+                    <group col="2">
+                        <group string="حالة الصرف">
+                            <field name="not_disbursed_count" readonly="1"/>
+                            <field name="disbursed_count" readonly="1"/>
+                        </group>
+                        <group string="حالة التسديد">
+                            <field name="unpaid_count" readonly="1"/>
+                            <field name="paid_count" readonly="1"/>
+                        </group>
+                    </group>
+                    <p class="text-muted">تُحدّث المؤشرات عند فتح لوحة التحكم أو إعادة تحميلها.</p>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_salf_dashboard" model="ir.actions.act_window">
+        <field name="name">لوحة التحكم</field>
+        <field name="res_model">salf.dashboard</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+    </record>
+</odoo>

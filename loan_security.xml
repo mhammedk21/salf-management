@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="module_category_salf" model="ir.module.category">
+        <field name="name">إدارة السلف المالية</field>
+        <field name="sequence">35</field>
+    </record>
+    <record id="group_loan_staff" model="res.groups">
+        <field name="name">موظف السلف</field>
+        <field name="category_id" ref="module_category_salf"/>
+    </record>
+    <record id="group_loan_manager" model="res.groups">
+        <field name="name">مدير السلف</field>
+        <field name="category_id" ref="module_category_salf"/>
+        <field name="implied_ids" eval="[(4, ref('group_loan_staff'))]"/>
+    </record>
+    <record id="seq_salf_loan" model="ir.sequence">
+        <field name="name">رقم السلفة</field>
+        <field name="code">salf.loan</field>
+        <field name="prefix">SL/%(year)s/</field>
+        <field name="padding">5</field>
+    </record>
+    <record id="rule_staff_customers" model="ir.rule">
+        <field name="name">موظفو السلف: جميع الزبائن</field>
+        <field name="model_id" ref="model_salf_customer"/>
+        <field name="groups" eval="[(4, ref('group_loan_staff'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+    <record id="rule_staff_loans" model="ir.rule">
+        <field name="name">موظفو السلف: جميع السلف</field>
+        <field name="model_id" ref="model_salf_loan"/>
+        <field name="groups" eval="[(4, ref('group_loan_staff'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+</odoo>

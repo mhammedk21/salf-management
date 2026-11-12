@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_disbursement_receipt" model="ir.actions.report">
+        <field name="name">وصل صرف سلفة</field>
+        <field name="model">salf.loan</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">salf_management.report_disbursement_receipt</field>
+        <field name="report_file">salf_management.report_disbursement_receipt</field>
+        <field name="print_report_name">'وصل_صرف_%s' % (object.name)</field>
+    </record>
+    <record id="action_report_repayment_receipt" model="ir.actions.report">
+        <field name="name">وصل تسديد سلفة</field>
+        <field name="model">salf.loan</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">salf_management.report_repayment_receipt</field>
+        <field name="report_file">salf_management.report_repayment_receipt</field>
+        <field name="print_report_name">'وصل_تسديد_%s' % (object.name)</field>
+    </record>
+    <template id="report_disbursement_receipt">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page" dir="rtl" style="font-family: sans-serif;">
+                        <h2 style="text-align:center;">وصل صرف سلفة مالية</h2>
+                        <p><strong>رقم الوصل:</strong> <span t-field="o.name"/></p>
+                        <p><strong>اسم الزبون:</strong> <span t-field="o.customer_id.name"/></p>
+                        <p><strong>رقم الهاتف:</strong> <span t-field="o.customer_id.phone"/></p>
+                        <p><strong>مبلغ السلفة:</strong> <span t-field="o.amount"/></p>
+                        <p><strong>تاريخ السلفة:</strong> <span t-field="o.date"/></p>
+                        <p><strong>تاريخ الصرف:</strong> <span t-field="o.disbursement_date"/></p>
+                        <br/><br/><table style="width:100%;"><tr><td>توقيع المستلم: ....................</td><td>توقيع المسؤول: ....................</td></tr></table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="report_repayment_receipt">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page" dir="rtl" style="font-family: sans-serif;">
+                        <h2 style="text-align:center;">وصل تسديد سلفة مالية</h2>
+                        <p><strong>رقم الوصل:</strong> <span t-field="o.name"/></p>
+                        <p><strong>اسم الزبون:</strong> <span t-field="o.customer_id.name"/></p>
+                        <p><strong>مبلغ التسديد:</strong> <span t-field="o.amount"/></p>
+                        <p><strong>تاريخ التسديد:</strong> <span t-field="o.repayment_date"/></p>
+                        <p><strong>الحالة:</strong> مسددة بالكامل</p>
+                        <br/><br/><table style="width:100%;"><tr><td>توقيع الزبون: ....................</td><td>توقيع المسؤول: ....................</td></tr></table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

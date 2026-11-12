@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_salf_root" name="إدارة السلف المالية" sequence="10" groups="salf_management.group_loan_staff"/>
+    <menuitem id="menu_salf_dashboard" name="لوحة التحكم" parent="menu_salf_root" action="action_salf_dashboard" sequence="1" groups="salf_management.group_loan_staff"/>
+    <menuitem id="menu_salf_customers" name="الزبائن" parent="menu_salf_root" action="action_salf_customers" sequence="10" groups="salf_management.group_loan_staff"/>
+    <menuitem id="menu_salf_loans" name="السلف" parent="menu_salf_root" action="action_salf_loans" sequence="20" groups="salf_management.group_loan_staff"/>
+</odoo>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_salf_loan_list" model="ir.ui.view">
+        <field name="name">salf.loan.list</field>
+        <field name="model">salf.loan</field>
+        <field name="arch" type="xml">
+            <list string="السلف" decoration-success="repayment_state == 'paid'" decoration-warning="disbursement_state == 'not_disbursed'">
+                <field name="name"/>
+                <field name="customer_id"/>
+                <field name="amount"/>
+                <field name="date"/>
+                <field name="disbursement_state"/>
+                <field name="repayment_state"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_salf_loan_form" model="ir.ui.view">
+        <field name="name">salf.loan.form</field>
+        <field name="model">salf.loan</field>
+        <field name="arch" type="xml">
+            <form string="السلفة المالية">
+                <header>
+                    <button name="action_disburse" type="object" string="تأكيد نزول السلفة وطباعة الوصل" class="btn-primary" invisible="disbursement_state == 'disbursed'"/>
+                    <button name="action_repay" type="object" string="تسجيل التسديد الكامل وطباعة الوصل" class="btn-success" invisible="disbursement_state != 'disbursed' or repayment_state == 'paid'"/>
+                    <button name="action_print_disbursement" type="object" string="طباعة وصل الصرف" invisible="disbursement_state != 'disbursed'"/>
+                    <button name="action_print_repayment" type="object" string="طباعة وصل التسديد" invisible="repayment_state != 'paid'"/>
+                    <field name="disbursement_state" widget="statusbar" statusbar_visible="not_disbursed,disbursed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name" readonly="1"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="customer_id"/>
+                            <field name="amount"/>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="repayment_state" widget="badge"/>
+                            <field name="disbursement_date" readonly="1"/>
+                            <field name="repayment_date" readonly="1"/>
+                        </group>
+                    </group>
+                    <group><field name="notes"/></group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_salf_loan_search" model="ir.ui.view">
+        <field name="name">salf.loan.search</field>
+        <field name="model">salf.loan</field>
+        <field name="arch" type="xml">
+            <search string="بحث السلف">
+                <field name="name"/>
+                <field name="customer_id"/>
+                <filter name="not_disbursed" string="غير نازلة" domain="[('disbursement_state','=','not_disbursed')]"/>
+                <filter name="disbursed" string="نازلة" domain="[('disbursement_state','=','disbursed')]"/>
+                <filter name="unpaid" string="غير مسددة" domain="[('repayment_state','=','unpaid')]"/>
+                <filter name="paid" string="مسددة" domain="[('repayment_state','=','paid')]"/>
+            </search>
+        </field>
+    </record>
+    <record id="action_salf_loans" model="ir.actions.act_window">
+        <field name="name">السلف</field>
+        <field name="res_model">salf.loan</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_salf_loan_search"/>
+    </record>
+</odoo>

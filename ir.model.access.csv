@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_salf_customer_staff,salf.customer staff,model_salf_customer,salf_management.group_loan_staff,1,1,1,0
+access_salf_customer_manager,salf.customer manager,model_salf_customer,salf_management.group_loan_manager,1,1,1,1
+access_salf_loan_staff,salf.loan staff,model_salf_loan,salf_management.group_loan_staff,1,1,1,0
+access_salf_loan_manager,salf.loan manager,model_salf_loan,salf_management.group_loan_manager,1,1,1,1
+access_salf_dashboard_staff,salf.dashboard staff,model_salf_dashboard,salf_management.group_loan_staff,1,1,1,1\n
